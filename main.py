@@ -5,6 +5,14 @@ import requests
 from bs4 import BeautifulSoup 
 from PIL import Image, ImageDraw, ImageFont
 import datetime
+import time
+import random
+import sys
+
+if len(sys.argv) != 2:
+  loop_times = 10000
+else:
+  loop_times = int(sys.argv[1])
 
 URL = "https://www.idonate.ie/fundraiser/MediaProductionSociety"
 headers = {'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/119.0"} 
@@ -57,8 +65,11 @@ def create_donation_thermometer(goal, current_donation, image_width=200, image_h
 #goal_amount = 7000
 #current_donation_amount = int(input("Enter the current donation amount, Example: 1234 (No Decimals): "))
 #current_donation_amount = 7000
-thermometer_image = create_donation_thermometer(goal_amount, current_donation_amount)
-thermometer_image.show()
-thermometer_image.save("donation_thermometer.png")
-current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-print(f"Donation Count Updated ({current_time}): €{current_donation_amount} out of €{goal_amount}")
+# every 10 minutes
+for i in range(loop_times):
+    thermometer_image = create_donation_thermometer(goal_amount, current_donation_amount)
+    thermometer_image.save("donation_thermometer.png")
+    current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    print(f"Donation Count Updated ({current_time}): €{current_donation_amount} out of €{goal_amount}")
+    time.sleep(random.randint(300, 600))
+
