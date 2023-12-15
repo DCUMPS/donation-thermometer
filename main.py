@@ -40,8 +40,11 @@ def create_donation_thermometer(goal, current_donation, image_width=400, image_h
 
     # Calculate mercury height based on current donation and goal
     max_thermometer_height = image_height
+    bar_height = current_donation
+    if current_donation >= goal:
+        bar_height = goal
     #print("350")
-    mercury_height = (int((current_donation / goal) * max_thermometer_height)) / 2
+    mercury_height = (int((bar_height / goal) * max_thermometer_height)) / 2
     #print(mercury_height)
 
     # Draw mercury
