@@ -49,8 +49,10 @@ def create_donation_thermometer(goal, current_donation, image_width=400, image_h
     draw.rectangle([(image_width // 2 - thermometer_width // 2, 250), (image_width // 2 + thermometer_width // 2, fixed_image_height - 100)], outline=border_color, width=border_width)
 
     # Calculate mercury height based on current donation and goal
-    max_thermometer_height = fixed_image_height - 350
-    mercury_height = int((current_donation / goal) * max_thermometer_height)
+    max_thermometer_height = image_height
+    #print("350")
+    mercury_height = (int((current_donation / goal) * max_thermometer_height)) / 2
+    #print(mercury_height)
 
     # Draw mercury
     mercury_top = fixed_image_height - 95 - mercury_height + border_width
@@ -71,15 +73,15 @@ def create_donation_thermometer(goal, current_donation, image_width=400, image_h
     return image
 
 # Example usage
-goal_amount = 10000
+# goal_amount = 10000
 #current_donation_amount = int(input("Enter the current donation amount, Example: 1234 (No Decimals): "))
-current_donation_amount = 10000
+#current_donation_amount = 1000
 thermometer_image = create_donation_thermometer(goal_amount, current_donation_amount)
 thermometer_image.save("donation_thermometer.png")
-# every 10 minutes
-"""for i in range(loop_times):
+# every 5-10 minutes
+for i in range(loop_times):
     thermometer_image = create_donation_thermometer(goal_amount, current_donation_amount)
     thermometer_image.save("donation_thermometer.png")
     current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     print(f"Donation Count Updated ({current_time}): €{current_donation_amount} out of €{goal_amount}")
-    time.sleep(random.randint(300, 600))"""
+    time.sleep(random.randint(300, 600))
