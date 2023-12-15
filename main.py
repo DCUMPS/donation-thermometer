@@ -14,16 +14,6 @@ if len(sys.argv) != 2:
 else:
   loop_times = int(sys.argv[1])
 
-URL = "https://www.idonate.ie/fundraiser/MediaProductionSociety"
-headers = {'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/119.0"} 
-r = requests.get(url=URL, headers=headers) 
-
-soup = BeautifulSoup(r.content, 'html5lib')
-current_donation = soup.find('div', attrs = {'class':'ifs-right-fundraisers-head'}) 
-donation_target = soup.find('div', attrs = {'class':'support-cause'}) 
-current_donation_amount = int(str(current_donation).split()[3].split("€")[1].split("<")[0])
-goal_amount = int(str(donation_target).split("€")[1].split("<")[0].replace(",",""))
-
 def create_donation_thermometer(goal, current_donation, image_width=400, image_height=700):
     # Create a blank image with RGBA color mode (4 channels including Alpha)
     image = Image.new("RGBA", (image_width, image_height), (0, 0, 0, 0))
@@ -73,15 +63,23 @@ def create_donation_thermometer(goal, current_donation, image_width=400, image_h
     return image
 
 # Example usage
-# goal_amount = 10000
+#goal_amount = 10000
 #current_donation_amount = int(input("Enter the current donation amount, Example: 1234 (No Decimals): "))
 #current_donation_amount = 1000
-thermometer_image = create_donation_thermometer(goal_amount, current_donation_amount)
-thermometer_image.save("donation_thermometer.png")
+# thermometer_image = create_donation_thermometer(goal_amount, current_donation_amount)
+# thermometer_image.save("donation_thermometer.png")
 # every 5-10 minutes
 for i in range(loop_times):
+    URL = "https://www.idonate.ie/fundraiser/MediaProductionSociety"
+    headers = {'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/119.0"} 
+    r = requests.get(url=URL, headers=headers) 
+    soup = BeautifulSoup(r.content, 'html5lib')
+    current_donation = soup.find('div', attrs = {'class':'ifs-right-fundraisers-head'}) 
+    donation_target = soup.find('div', attrs = {'class':'support-cause'}) 
+    current_donation_amount = int(str(current_donation).split()[3].split("€")[1].split("<")[0].replace(",",""))
+    goal_amount = int(str(donation_target).split("€")[1].split("<")[0].replace(",",""))
     thermometer_image = create_donation_thermometer(goal_amount, current_donation_amount)
     thermometer_image.save("donation_thermometer.png")
     current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     print(f"Donation Count Updated ({current_time}): €{current_donation_amount} out of €{goal_amount}")
-    time.sleep(random.randint(300, 600))
+    time.sleep(random.randint(100, 300))
