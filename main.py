@@ -26,7 +26,8 @@ def create_donation_thermometer(goal, current_donation, image_width=400, image_h
 
     # Define colors
     border_color = (255, 255, 255)
-    mercury_color = (166, 229, 228)  
+    #mercury_color = (166, 229, 228) - TV
+    mercury_color = (149, 239, 185) # - FM
     #mercury_color = (166, 229, 228, 128)  # Set alpha to 128 for semi-transparency
 
     # Draw border
@@ -73,7 +74,7 @@ def create_donation_thermometer(goal, current_donation, image_width=400, image_h
 # thermometer_image.save("donation_thermometer.png")
 # every 5-10 minutes
 for i in range(loop_times):
-    URL = "https://www.idonate.ie/fundraiser/MediaProductionSociety"
+    URL = "https://www.idonate.ie/fundraiser/MediaProductionSociety11"
     headers = {'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/119.0"} 
     r = requests.get(url=URL, headers=headers) 
     soup = BeautifulSoup(r.content, 'html5lib')
