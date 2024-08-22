@@ -77,8 +77,12 @@ def get_donation_count_fm():
     donation_target = soup.find('div', attrs = {'class':'support-cause'}) 
     current_donation_amount = int(str(current_donation).split()[3].split("€")[1].split("<")[0].replace(",",""))
     goal_amount = int(str(donation_target).split("€")[1].split("<")[0].replace(",",""))
-    thermometer_image = create_donation_thermometer(goal_amount, current_donation_amount)
+    #thermometer_image = create_donation_thermometer(goal_amount, current_donation_amount)
+    thermometer_image = create_donation_thermometer(99999, 99999)
     thermometer_image.save("donation_thermometer.png")
+    cropped_image = Image.open("donation_thermometer.png")
+    cropped_image = cropped_image.crop((0, 110, 400, 700))
+    cropped_image.save("donation_thermometer.png")
     current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     print(f"Donation Count Updated ({current_time}): €{current_donation_amount} out of €{goal_amount}")
 
