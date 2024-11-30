@@ -10,10 +10,12 @@ from PIL import Image, ImageDraw, ImageFont
 
 font_path = "./assets/fonts/GaretHeavy.ttf"
 image_path = "./assets/images/donation_thermometer.png"
+donation_url = "https://www.idonate.ie/fundraiser/MediaProductionSociety12"
+heading_text = f"DONATION\nPROGRESS"
 
 
 def get_donation_count():
-    URL = "https://www.idonate.ie/fundraiser/MediaProductionSociety12"
+    URL = donation_url
     headers = {
         'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/119.0"}
 
@@ -79,11 +81,10 @@ def create_donation_thermometer(goal, current_donation, image_width=400, image_h
     draw.text(((image_width - text_width) // 2, fixed_image_height - 70),
               text, font=font, fill=(255, 255, 255))
 
-    text = f"DONATION\nPROGRESS"
-    text_bbox = draw.textbbox((0, 0), text, font=font)
+    text_bbox = draw.textbbox((0, 0), heading_text, font=font)
     text_width = text_bbox[2] - text_bbox[0]
     draw.text(((image_width - text_width) // 2, fixed_image_height - 600),
-              text, font=font, fill=(255, 255, 255))
+              heading_text, font=font, fill=(255, 255, 255))
 
     return image
 
