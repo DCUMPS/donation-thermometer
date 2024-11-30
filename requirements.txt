@@ -1,5 +1,4 @@
-selenium
-pillow==9.1.0
+pillow
 html5lib
 beautifulsoup4
 requests
