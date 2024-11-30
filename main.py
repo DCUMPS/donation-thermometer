@@ -12,6 +12,7 @@ font_path = "./assets/fonts/GaretHeavy.ttf"
 image_path = "./assets/images/donation_thermometer.png"
 donation_url = "https://www.idonate.ie/fundraiser/MediaProductionSociety12"
 heading_text = f"DONATION\nPROGRESS"
+mercury_color = (241, 250, 131)
 
 
 def get_donation_count():
@@ -73,7 +74,7 @@ def create_donation_thermometer(goal, current_donation, image_width=400, image_h
 
     if mercury_height > 0:
         draw.rectangle([(mercury_left, mercury_top),
-                       (mercury_right, mercury_bottom)], fill=(149, 239, 185))
+                       (mercury_right, mercury_bottom)], fill=mercury_color)
 
     text = f"{current_donation} / {goal}"
     text_bbox = draw.textbbox((0, 0), text, font=font)
