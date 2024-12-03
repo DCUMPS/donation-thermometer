@@ -107,13 +107,13 @@ def create_donation_thermometer(goal, current_donation, image_width=600, image_h
 
 while True:
     try:
-        #data = get_donation_count()
-        #current_donation_amount = data['totalRaised']
-        #goal_amount = data['targetAmount']
+        data = get_donation_count()
+        current_donation_amount = data['totalRaised']
+        goal_amount = data['targetAmount']
 
-        #thermometer_image = create_donation_thermometer(
-        #    goal_amount, current_donation_amount)
-        thermometer_image = create_donation_thermometer(99999, 99999)
+        thermometer_image = create_donation_thermometer(
+            goal_amount, current_donation_amount)
+        #thermometer_image = create_donation_thermometer(99999, 99999)
         thermometer_image.save(image_path)
 
         cropped_image = Image.open(image_path)
@@ -121,8 +121,8 @@ while True:
         cropped_image.save(image_path)
 
         current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        #print(
-        #    f"Donation Count Updated ({current_time}): €{current_donation_amount} out of €{goal_amount}")
+        print(
+            f"Donation Count Updated ({current_time}): €{current_donation_amount} out of €{goal_amount}")
 
         time.sleep(random.randint(10, 60))
 
