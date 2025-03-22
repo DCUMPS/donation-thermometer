@@ -10,7 +10,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 font_path = "./assets/fonts/GaretHeavy.ttf"
 image_path = "./assets/images/donation_thermometer.png"
-donation_url = "https://www.idonate.ie/fundraiser/MediaProductionSociety12"
+donation_url = "https://www.idonate.ie/fundraiser/MediaProductionSociety13"
 heading_text = f"DONATION\nPROGRESS"
 mercury_color = (241, 250, 131)
 
