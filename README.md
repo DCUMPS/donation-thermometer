@@ -16,7 +16,7 @@ font_size = 50 # Font size
 ```
 
 ## Example of the thermometer:
-![Example](./donation_thermometer.png)
+![Example](./assets/images/donation_thermometer.png)
 
 ## Example of the latest donation:
 ![Example](./latest_donation.png)
