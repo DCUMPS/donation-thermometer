@@ -7,6 +7,25 @@ import random
 import re
 from bs4 import BeautifulSoup
 from PIL import Image, ImageDraw, ImageFont
+import sys
+import select
+
+try:
+    import keyboard
+    print("Keyboard module imported successfully.")
+    KEYBOARD_AVAILABLE = True
+except Exception:
+    print("Keyboard module not available.")
+    KEYBOARD_AVAILABLE = False
+
+try:
+    import msvcrt
+    print("msvcrt module imported successfully.")
+    WINDOWS = True
+except ImportError:
+    print("msvcrt module not available.")
+    WINDOWS = False
+
 
 font_path = "./assets/fonts/GaretHeavy.ttf"
 image_path = "./assets/images/donation_thermometer.png"
@@ -14,6 +33,27 @@ donation_url = "https://www.idonate.ie/fundraiser/MediaProductionSociety14"
 heading_text = f"DONATION\nPROGRESS"
 mercury_color = (358, 91, 83)
 
+def r_key_pressed():
+    """Cross-platform check if 'r' key was pressed without blocking."""
+    
+    # Best option: keyboard module
+    if KEYBOARD_AVAILABLE:
+        return keyboard.is_pressed('r')
+    
+    # Windows fallback (msvcrt)
+    if WINDOWS:
+        if msvcrt.kbhit():
+            key = msvcrt.getch().decode('utf-8', errors='ignore')
+            return key.lower() == 'r'
+        return False
+
+    # Linux/macOS fallback (select on sys.stdin)
+    dr, _, _ = select.select([sys.stdin], [], [], 0)
+    if dr:
+        key = sys.stdin.read(1)
+        return key.lower() == 'r'
+    
+    return False
 
 def get_donation_count():
     URL = donation_url
@@ -124,7 +164,15 @@ while True:
         print(
             f"Donation Count Updated ({current_time}): €{current_donation_amount} out of €{goal_amount}")
 
-        time.sleep(random.randint(10, 60))
+        refresh_delay = random.randint(10, 60)
+
+        # Sleep in 0.1s steps while checking for keypress
+        for _ in range(refresh_delay * 10):
+            if r_key_pressed():
+                print("Manual refresh triggered (R pressed)")
+                break
+            time.sleep(0.1)
+
 
     except requests.exceptions.RequestException as e:
         print(f"Error fetching data: {e}")
