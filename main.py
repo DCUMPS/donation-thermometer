@@ -31,7 +31,7 @@ font_path = "./assets/fonts/GaretHeavy.ttf"
 image_path = "./assets/images/donation_thermometer.png"
 donation_url = "https://www.idonate.ie/fundraiser/MediaProductionSociety14"
 heading_text = f"DONATION\nPROGRESS"
-mercury_color = (358, 91, 83)
+mercury_color = (255, 50, 50)
 
 def r_key_pressed():
     """Cross-platform check if 'r' key was pressed without blocking."""
@@ -164,6 +164,7 @@ while True:
         print(
             f"Donation Count Updated ({current_time}): €{current_donation_amount} out of €{goal_amount}")
 
+        print("Press R to refresh donation count")
         refresh_delay = random.randint(10, 60)
 
         # Sleep in 0.1s steps while checking for keypress
